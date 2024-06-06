@@ -3,4 +3,4 @@ from django.shortcuts import render
 
 
 def index(req):
-    return HttpResponse('Hello world!')
+    return render(req, 'wsite/index.html', {'title': 'mytitle'})
