@@ -1,9 +1,39 @@
+body {
+    font-family: "Press Start 2P";
+}
+
 .logo {
-    width: 200px;
+    width: 150px;
+    margin: 2%;
+}
+
+.header, .footer {
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .header {
-    height: 200px;
+    box-shadow: 0 2px 5px lightgray;
+}
+
+.footer {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    box-shadow: 0 -2px 5px lightgray;
+}
+
+.header-buttons, .footer-buttons {
     display: flex;
-    justify-content: space-between;
+    margin-right: 5%;
+}
+
+.header-button, .footer-button{
+    margin: 0 10px;
+}
+
+.about-me {
+    margin: 2%;
 }
