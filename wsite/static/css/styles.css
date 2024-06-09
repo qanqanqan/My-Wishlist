@@ -2,9 +2,18 @@ body {
     font-family: "Press Start 2P";
 }
 
-.logo {
+.logo-wrapper, .logo {
     width: 150px;
+}
+
+.logo-wrapper {
     margin: 2%;
+    display: flex;
+    align-items: center;
+}
+
+.logo-text {
+    margin-left: 20px;
 }
 
 .header, .footer {
