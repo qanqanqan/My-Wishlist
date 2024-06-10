@@ -3,10 +3,22 @@
 {% block title %} {{ title }} {% endblock title %}
 
 {% block header %}
-{% include 'inc/_header.html' %}
+{% include 'inc/_index-header.html' %}
 {% endblock %}
 
-{% block content %} {% endblock %}
+{% block content %}
+<div class="content">
+
+    <div class="main-block">
+        <h1 class="title">My Wishlist</h1>
+        <div class="index-text">
+            Create your wishlist and share it with your friends!
+        </div>
+        <button type="button" class="nes-btn nes-btn-noborder">Get started</button>
+    </div>
+
+</div>
+{% endblock %}
 
 {% block footer %}
 {% include 'inc/_footer.html' %}

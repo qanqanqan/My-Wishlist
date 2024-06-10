@@ -1,4 +1,5 @@
-function overlogo() {
+function logohandler() {
+    const foundDivs = document.getElementsByClassName('logo-text');
     if (document.getElementsByClassName("logo-text").length == 0) {
         const newDiv = document.createElement("div");
         const newContent = document.createTextNode("Hoo");
@@ -10,12 +11,7 @@ function overlogo() {
 
         currentDiv.appendChild(newDiv);
     }
-}
-
-function outlogo() {
-    const foundDivs = document.getElementsByClassName('logo-text');
-    if (foundDivs.length != 0) {
-        const foundDiv = foundDivs[0];
-        foundDiv.remove();
+    else {
+        foundDivs[0].remove();
     }
 }
