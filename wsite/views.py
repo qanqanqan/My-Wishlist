@@ -2,9 +2,11 @@ from django.shortcuts import redirect, render
 from django.core.exceptions import PermissionDenied
 from django.views.generic import ListView
 from django.template.defaultfilters import slugify
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import login, logout
 
 from .models import WishlistPosition, Wishlist
-from .forms import CreateWishlistForm
+from .forms import CreateWishlistForm, UserAuthenticationForm
 
 
 def index(req):
@@ -23,7 +25,27 @@ def add_wishlist(req):
     return redirect('user-wishlists')
 
 
-class ShowWishlists(ListView):
+def authenticate(req):
+    if req.user.is_authenticated:
+        return redirect('user-wishlists')
+    
+    if req.method == 'GET':
+        form = UserAuthenticationForm()
+    else:
+        form = UserAuthenticationForm(data=req.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(req, user)
+            return redirect('user-wishlists')
+    return render(req, 'wsite/login.html', {'form': form})
+
+
+def user_logout(req):
+    logout(req)
+    return redirect('index')
+
+
+class ShowWishlists(LoginRequiredMixin, ListView):
     template_name = 'wsite/wishlists-list.html'
     context_object_name = 'wishlists'
 
@@ -38,7 +60,7 @@ class ShowWishlists(ListView):
         return context
 
 
-class ShowSingleWishlist(ListView):
+class ShowSingleWishlist(LoginRequiredMixin, ListView):
     template_name = 'wsite/wishlist.html'
     context_object_name = 'positions'
     extra_context = {'title': 'wishlist'}

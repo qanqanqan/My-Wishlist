@@ -16,18 +16,11 @@
             <dialog class="nes-dialog" id="dialog-default">
               <form method="post" action="{% url 'add-wishlist' %}">
                 {% csrf_token %}
-                <!-- <p class="title">Enter title</p>
-                <div class="nes-field">
-                    <label for="name_field">Title</label>
-                    <input type="text" id="name_field" class="nes-input nes-btn-noborder">
-                  </div>
-                <menu class="dialog-menu">
-                  <button class="nes-btn nes-btn-noborder" type="button" onclick="document.getElementById('dialog-default').close()">Cancel</button>
-                  <button class="nes-btn is-primary nes-btn-noborder" type="submit">Confirm</button>
-                </menu> -->
+                
                 {{ form.as_p }}
 
-                <button type="submit">ok</button>
+                <button class="nes-btn is-primary nes-btn-noborder" type="submit">Confirm</button>
+                <button class="nes-btn nes-btn-noborder" type="button" onclick="document.getElementById('dialog-default').close()">Cancel</button>
               </form>
             </dialog>
           </section>

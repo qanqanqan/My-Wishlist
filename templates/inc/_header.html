@@ -1,20 +1,12 @@
 {% load static %}
 <div class="header">
     <div class="logo-wrapper" id="logo-wrapper">
-        <img src="{% static 'img/logo.jpg' %}" alt="logo" class="logo" onmouseover="logohandler()" onmouseout="logohandler()">
+        <img src="{% static 'img/logo.jpg' %}" alt="logo" class="logo" onmouseover="logohandler()"
+            onmouseout="logohandler()">
     </div>
 
     <div class="naming">My Wishlist</div>
 
-    <div class="header-buttons">
-        <div class="header-button">
-            <a href="">Lorem</a>
-        </div>|
-        <div class="header-button">
-            <a href="">Lorem</a>
-        </div>|
-        <div class="header-button">
-            <a href="">Lorem</a>
-        </div>
-    </div>
+    {% include 'inc/_header-buttons.html' %}
+
 </div>
