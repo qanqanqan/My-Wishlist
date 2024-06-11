@@ -8,9 +8,33 @@
 
 {% block content %}
 <div class="content">
+    <div class="content-buttons">
+        <section>
+            <button type="button" class="nes-btn is-success nes-btn-noborder" onclick="document.getElementById('dialog-default').showModal();">
+              +
+            </button>
+            <dialog class="nes-dialog" id="dialog-default">
+              <form method="post" action="{% url 'add-wishlist' %}">
+                {% csrf_token %}
+                <!-- <p class="title">Enter title</p>
+                <div class="nes-field">
+                    <label for="name_field">Title</label>
+                    <input type="text" id="name_field" class="nes-input nes-btn-noborder">
+                  </div>
+                <menu class="dialog-menu">
+                  <button class="nes-btn nes-btn-noborder" type="button" onclick="document.getElementById('dialog-default').close()">Cancel</button>
+                  <button class="nes-btn is-primary nes-btn-noborder" type="submit">Confirm</button>
+                </menu> -->
+                {{ form.as_p }}
+
+                <button type="submit">ok</button>
+              </form>
+            </dialog>
+          </section>
+    </div>
     {% for wishlist in wishlists %}
         <div class="position">
-            <a class="nes-btn is-primary nes-btn-noborder" href="{% url 'user-wishlist' wishlist.slug %}">{{ wishlist.name }}</a>
+            <a class="nes-btn nes-btn-noborder" href="{% url 'user-wishlist' wishlist.slug %}">{{ wishlist.name }}</a>
         </div>
     {% empty %}
         Nothing to see here
