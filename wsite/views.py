@@ -8,6 +8,8 @@ from django.contrib.auth import login, logout
 from .models import WishlistPosition, Wishlist
 from .forms import CreateWishlistForm, UserAuthenticationForm
 
+from .addons import to_latin
+
 
 def index(req):
     return render(req, 'wsite/index.html', {'title': 'mytitle'})
@@ -20,7 +22,7 @@ def add_wishlist(req):
             data = form.cleaned_data
             if not data['name']:
                 return redirect('user-wishlists')
-            Wishlist.objects.create(name=data['name'], slug=slugify(data['name']), owner=req.user)
+            Wishlist.objects.create(name=data['name'], slug=slugify(to_latin(data['name'])), owner=req.user)
 
     return redirect('user-wishlists')
 
@@ -72,3 +74,17 @@ class ShowSingleWishlist(LoginRequiredMixin, ListView):
             raise PermissionDenied
         
         return WishlistPosition.objects.filter(wishlist=searchable_wishlist)
+
+
+def delete_wishlist(req, slug):
+    # wishlist = get_object_or_404(Wishlist, slug=slug)
+    wishlist = Wishlist.objects.get(slug=slug)
+
+    if not wishlist:
+        redirect('user-wishlists')
+
+    if wishlist.owner != req.user:
+        raise PermissionDenied
+    
+    wishlist.delete()
+    return redirect('user-wishlists')

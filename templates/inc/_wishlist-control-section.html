@@ -1,0 +1,30 @@
+<section>
+    <dialog class="nes-dialog" id="add-wishlist-dialog">
+        <div class="dialog-title">New wishlist</div>
+        <form method="post" action="{% url 'add-wishlist' %}">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button class="nes-btn is-primary nes-btn-noborder" type="submit">Confirm</button>
+            <button class="nes-btn nes-btn-noborder" type="button"
+                onclick="document.getElementById('add-wishlist-dialog').close()">Cancel</button>
+        </form>
+    </dialog>
+    <dialog class="nes-dialog" id="delete-wishlist-dialog">
+        <div class="dialog-title">Delete wishlist</div>
+        
+        <div class="wishlists">
+            {% for wishlist in wishlists %}
+                <div class="position">
+                    <a class="nes-btn nes-btn-noborder is-error" href="{% url 'delete-wishlist' wishlist.slug %}">{{ wishlist.name }}</a>
+                </div>
+            {% empty %}
+                Nothing to see here
+            {% endfor %}
+        </div>
+
+        <button class="nes-btn nes-btn-noborder" type="button"
+                onclick="document.getElementById('delete-wishlist-dialog').close()">Cancel</button>
+    </dialog>
+</section>

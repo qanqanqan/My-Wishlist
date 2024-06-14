@@ -8,29 +8,23 @@
 
 {% block content %}
 <div class="content">
-    <div class="content-buttons">
-        <section>
-            <button type="button" class="nes-btn is-success nes-btn-noborder" onclick="document.getElementById('dialog-default').showModal();">
-              +
-            </button>
-            <dialog class="nes-dialog" id="dialog-default">
-              <form method="post" action="{% url 'add-wishlist' %}">
-                {% csrf_token %}
-                
-                {{ form.as_p }}
-
-                <button class="nes-btn is-primary nes-btn-noborder" type="submit">Confirm</button>
-                <button class="nes-btn nes-btn-noborder" type="button" onclick="document.getElementById('dialog-default').close()">Cancel</button>
-              </form>
-            </dialog>
-          </section>
+    <div class="add-wishlist-section">
+        <button type="button" class="nes-btn is-success nes-btn-noborder"
+            onclick="document.getElementById('add-wishlist-dialog').showModal();">
+            +
+        </button>
+        <button type="button" class="nes-btn is-error nes-btn-noborder"
+            onclick="document.getElementById('delete-wishlist-dialog').showModal();">
+            -
+        </button>
+        {% include 'inc/_wishlist-control-section.html' %}
     </div>
     {% for wishlist in wishlists %}
-        <div class="position">
-            <a class="nes-btn nes-btn-noborder" href="{% url 'user-wishlist' wishlist.slug %}">{{ wishlist.name }}</a>
-        </div>
+    <div class="position">
+        <a class="nes-btn nes-btn-noborder" href="{% url 'user-wishlist' wishlist.slug %}">{{ wishlist.name }}</a>
+    </div>
     {% empty %}
-        Nothing to see here
+    Nothing to see here
     {% endfor %}
 </div>
 {% endblock %}

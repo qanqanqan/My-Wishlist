@@ -69,3 +69,9 @@ body {
     border-image-repeat: unset !important; 
     border-image-width: unset !important;
 }
+
+.dialog-title {
+    width: 100%; 
+    margin: 0 auto;
+    padding: 3px 0;
+}
