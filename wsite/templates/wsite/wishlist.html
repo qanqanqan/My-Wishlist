@@ -8,6 +8,17 @@
 
 {% block content %}
 <div class="content">
+    <div class="add-wishlist-section">
+        <button type="button" class="nes-btn is-success nes-btn-noborder"
+            onclick="document.getElementById('add-position-dialog').showModal();">
+            +
+        </button>
+        <button type="button" class="nes-btn is-error nes-btn-noborder"
+            onclick="document.getElementById('delete-position-dialog').showModal();">
+            -
+        </button>
+        {% include 'inc/_position-control-section.html' %}
+    </div>
     {% for position in positions %}
         <div class="position">
             <div class="pos-title">{{ position.title }}</div>

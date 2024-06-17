@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
 
-from .models import Wishlist
+from .models import Wishlist, WishlistPosition
 
 
 class CreateWishlistForm(forms.Form):
@@ -10,6 +10,12 @@ class CreateWishlistForm(forms.Form):
         attrs={'class': 'nes-input nes-btn-noborder'}))
     slug = forms.CharField(required=False, widget=forms.HiddenInput())
     owner = forms.CharField(required=False, widget=forms.HiddenInput())
+
+
+class CreateWishlistPositionForm(forms.Form):
+    title = forms.CharField(widget=forms.TextInput())
+    description = forms.CharField(widget=forms.TextInput())
+    wishlist = forms.CharField(required=False, widget=forms.HiddenInput())
 
 
 class UserAuthenticationForm(AuthenticationForm):

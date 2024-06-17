@@ -1,3 +1,4 @@
+from typing import Any
 from django.shortcuts import redirect, render
 from django.core.exceptions import PermissionDenied
 from django.views.generic import ListView
@@ -6,25 +7,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login, logout
 
 from .models import WishlistPosition, Wishlist
-from .forms import CreateWishlistForm, UserAuthenticationForm
+from .forms import CreateWishlistForm, UserAuthenticationForm, CreateWishlistPositionForm
 
 from .addons import to_latin
 
 
 def index(req):
     return render(req, 'wsite/index.html', {'title': 'mytitle'})
-
-
-def add_wishlist(req):
-    if req.method == 'POST':
-        form = CreateWishlistForm(req.POST)
-        if form.is_valid():
-            data = form.cleaned_data
-            if not data['name']:
-                return redirect('user-wishlists')
-            Wishlist.objects.create(name=data['name'], slug=slugify(to_latin(data['name'])), owner=req.user)
-
-    return redirect('user-wishlists')
 
 
 def authenticate(req):
@@ -65,7 +54,6 @@ class ShowWishlists(LoginRequiredMixin, ListView):
 class ShowSingleWishlist(LoginRequiredMixin, ListView):
     template_name = 'wsite/wishlist.html'
     context_object_name = 'positions'
-    extra_context = {'title': 'wishlist'}
 
     def get_queryset(self):
         searchable_wishlist = Wishlist.objects.get(slug=self.kwargs['slug'])
@@ -74,6 +62,26 @@ class ShowSingleWishlist(LoginRequiredMixin, ListView):
             raise PermissionDenied
         
         return WishlistPosition.objects.filter(wishlist=searchable_wishlist)
+    
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'wishlist'
+        context['form'] = CreateWishlistPositionForm()
+        context['slug'] = self.kwargs['slug']
+        return context
+
+
+# WISHLISTS FUNCS
+def add_wishlist(req):
+    if req.method == 'POST':
+        form = CreateWishlistForm(req.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            if not data['name']:
+                return redirect('user-wishlists')
+            Wishlist.objects.create(name=data['name'], slug=slugify(to_latin(data['name'])), owner=req.user)
+
+    return redirect('user-wishlists')
 
 
 def delete_wishlist(req, slug):
@@ -88,3 +96,27 @@ def delete_wishlist(req, slug):
     
     wishlist.delete()
     return redirect('user-wishlists')
+
+
+# WISHLIST POSITIONS FUNCS
+def add_position(req, slug):
+    if req.method == 'POST':
+        form = CreateWishlistPositionForm(req.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            WishlistPosition.objects.create(title=data['title'], description=data['description'], wishlist=Wishlist.objects.get(slug=slug))
+    
+    return redirect('user-wishlist', slug=slug)
+
+
+def delete_position(req, pk):
+    pos = WishlistPosition.objects.get(pk=pk)
+
+    if not pos:
+        redirect('user-wishlists')
+
+    if pos.wishlist.owner != req.user:
+        raise PermissionDenied
+    
+    pos.delete() 
+    return redirect('user-wishlist', slug=pos.wishlist.slug)
