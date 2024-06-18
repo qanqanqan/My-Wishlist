@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login, logout
 
 from .models import WishlistPosition, Wishlist
-from .forms import CreateWishlistForm, UserAuthenticationForm, CreateWishlistPositionForm
+from .forms import CreateWishlistForm, UserAuthenticationForm, CreateWishlistPositionForm, UserCreationFormC
 
 from .addons import to_latin
 
@@ -30,6 +30,19 @@ def authenticate(req):
             return redirect('user-wishlists')
     return render(req, 'wsite/login.html', {'form': form})
 
+
+def register(req):
+    if req.user.is_authenticated:
+        return redirect('user-wishlists')
+    
+    if req.method == 'GET':
+        form = UserCreationFormC()
+    else:
+        form = UserCreationFormC(req.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    return render(req, 'wsite/register.html', {'form': form})
 
 def user_logout(req):
     logout(req)

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ title }} {% endblock title %}
+
+{% block header %}
+<div style="width: 100%; height: 20vh;"></div>
+{% endblock %}
+
+{% block content %}
+<div class="content">
+
+    <div class="main-block">
+        <h1 class="title">Register form</h1>
+        <form method="post">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit">Enter</button>
+
+        </form>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block footer %}
+{% include 'inc/_footer.html' %}
+{% endblock %}

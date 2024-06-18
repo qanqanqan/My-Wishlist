@@ -14,5 +14,6 @@ urlpatterns = [
     path('delete-position/<int:pk>/', delete_position, name='delete-position'),
 
     path('login/', authenticate, name='login'),
-    path('logout/', user_logout, name='logout')
+    path('logout/', user_logout, name='logout'),
+    path('registration/', register, name='registration')
 ]
