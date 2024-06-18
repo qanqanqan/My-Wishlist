@@ -19,13 +19,15 @@
         </button>
         {% include 'inc/_wishlist-control-section.html' %}
     </div>
-    {% for wishlist in wishlists %}
-    <div class="position">
-        <a class="nes-btn nes-btn-noborder" href="{% url 'user-wishlist' wishlist.slug %}">{{ wishlist.name }}</a>
+    <div class="positions">
+        {% for wishlist in wishlists %}
+        <div class="position">
+            <a class="nes-btn nes-btn-noborder" href="{% url 'user-wishlist' wishlist.slug %}">{{ wishlist.name }}</a>
+        </div>
+        {% empty %}
+        Nothing to see here
+        {% endfor %}
     </div>
-    {% empty %}
-    Nothing to see here
-    {% endfor %}
 </div>
 {% endblock %}
 

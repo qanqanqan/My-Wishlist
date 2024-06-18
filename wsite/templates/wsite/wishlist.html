@@ -19,14 +19,16 @@
         </button>
         {% include 'inc/_position-control-section.html' %}
     </div>
-    {% for position in positions %}
-        <div class="position">
-            <div class="pos-title">{{ position.title }}</div>
-            <div class="pos-desc">{{ position.description }}</div>
-        </div>
-    {% empty %}
-        Nothing to see here
-    {% endfor %}
+    <div class="positions">
+        {% for position in positions %}
+            <div class="position">
+                <div class="pos-title">{{ position.title }}</div>
+                <div class="pos-desc">{{ position.description }}</div>
+            </div>
+        {% empty %}
+            Nothing to see here
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}
 
