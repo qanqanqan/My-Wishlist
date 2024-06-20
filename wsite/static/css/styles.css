@@ -50,7 +50,21 @@ body {
 }
 
 .positions {
-    width: 300px;
+    width: fit-content;
+}
+
+.position {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pos-text {
+    width: min-content;
+}
+
+.wishlist-public-link {
+    display: none;
 }
 
 .main-block {
@@ -83,6 +97,6 @@ body {
 
 .dialog-title {
     width: 100%; 
-    margin: 0 auto;
+    margin: 20px auto;
     padding: 3px 0;
 }

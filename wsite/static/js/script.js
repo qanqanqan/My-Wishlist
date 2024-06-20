@@ -15,3 +15,8 @@ function logohandler() {
         foundDivs[0].remove();
     }
 }
+
+function copy_url_on_click(val) {
+    const a = document.getElementById('pub-url-wishlist-' + val);
+    navigator.clipboard.writeText(window.location.href + a.innerText);
+}

@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login, logout
 
 from .models import WishlistPosition, Wishlist
-from .forms import CreateWishlistForm, UserAuthenticationForm, CreateWishlistPositionForm, UserCreationFormC
+from .forms import *
 
 from .addons import to_latin
 

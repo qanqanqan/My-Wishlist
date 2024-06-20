@@ -8,23 +8,23 @@
 
             <button class="nes-btn is-primary nes-btn-noborder" type="submit">Confirm</button>
             <button class="nes-btn nes-btn-noborder" type="button"
-                onclick="document.getElementById('add-position-dialog').close()">Cancel</button>
+                onclick="document.getElementById('add-position-dialog').close()">Close</button>
         </form>
     </dialog>
     <dialog class="nes-dialog" id="delete-position-dialog">
         <div class="dialog-title">Delete position</div>
-        
+
         <div class="positions">
             {% for position in positions %}
-                <div class="position">
-                    <a class="nes-btn nes-btn-noborder is-error" href="{% url 'delete-position' position.pk %}">{{ position.title }}</a>
-                </div>
+            <div class="position">
+                <a class="nes-btn nes-btn-noborder is-error" href="{% url 'delete-position' position.pk %}">{{ position.title }}</a>
+            </div>
             {% empty %}
-                Nothing to see here
+            Nothing to see here
             {% endfor %}
         </div>
 
         <button class="nes-btn nes-btn-noborder" type="button"
-                onclick="document.getElementById('delete-position-dialog').close()">Cancel</button>
+            onclick="document.getElementById('delete-position-dialog').close()">Close</button>
     </dialog>
 </section>

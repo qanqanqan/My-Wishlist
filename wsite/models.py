@@ -6,6 +6,12 @@ class Wishlist(models.Model):
     name = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50, unique=True)
     owner = models.ForeignKey(User, on_delete=models.PROTECT)
+    public = models.BooleanField(default=False)
+
+    def get_public_url(self):
+        if not self.public:
+            return False
+        return f'{self.owner}/{self.slug}/'
 
     def __str__(self):
         return self.name

@@ -21,12 +21,12 @@
     </div>
     <div class="positions">
         {% for position in positions %}
-            <div class="position">
-                <div class="pos-title">{{ position.title }}</div>
-                <div class="pos-desc">{{ position.description }}</div>
-            </div>
+        <div class="position">
+            <div class="pos-title">{{ position.title }}</div>
+            <div class="pos-desc">{{ position.description }}</div>
+        </div>
         {% empty %}
-            Nothing to see here
+        Nothing to see here
         {% endfor %}
     </div>
 </div>
