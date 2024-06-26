@@ -111,6 +111,23 @@ def delete_wishlist(req, slug):
     return redirect('user-wishlists')
 
 
+def change_wishlist_publicity(req):
+    if req.method != 'POST':
+        return redirect('user-wishlists')
+    
+    data = req.POST
+    for key, value in dict(data).items():
+        if not key.startswith('wishlist-'):
+            continue
+
+        wishlist_pk = int(key[-1])
+        bool_val = True if value[0] == 'on' else False
+        Wishlist.objects.filter(pk=wishlist_pk).update(public=bool_val)
+    
+    return redirect('user-wishlists')
+
+
+
 # WISHLIST POSITIONS FUNCS
 def add_position(req, slug):
     if req.method == 'POST':

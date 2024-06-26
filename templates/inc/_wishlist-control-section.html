@@ -30,34 +30,45 @@
     <dialog class="nes-dialog" id="share-dialog" style="width: fit-content">
         <div class="dialog-title">Share wishlist<br>click to copy link</div>
 
-        <div class="wishlists">
-            {% for wishlist in wishlists %}
-            {% if wishlist.public %}
-            <div class="position">
-                <button class="nes-btn nes-btn-noborder is-primary" id="wishlist-{{ wishlist.pk }}"
-                    onclick="copy_url_on_click({{ wishlist.pk }})">{{ wishlist.name }}</button>
-                <label>
-                    <input type="checkbox" class="nes-checkbox" name="is-public-wishlist-{{ wishlist.pk }}" checked />
-                    <span>Public</span>
-                </label>
-                <div class="wishlist-public-link" id="pub-url-wishlist-{{ wishlist.pk }}">{{ wishlist.get_public_url }}
-                </div>
-            </div>
-            {% else %}
-            <div class="position">
-                <button class="nes-btn nes-btn-noborder is-disabled">{{ wishlist.name }}</button>
-                <label>
-                    <input type="checkbox" class="nes-checkbox" name="{{wishlist.pk}}-public" />
-                    <span>Public</span>
-                </label>
-            </div>
-            {% endif %}
-            {% empty %}
-            Nothing to see here
-            {% endfor %}
-        </div>
+        <form method="POST" action="{% url 'change-wishlist-publicity' %}">
+            {% csrf_token %}
 
-        <button class="nes-btn nes-btn-noborder" type="button"
-            onclick="document.getElementById('share-dialog').close()">Cancel</button>
+            <div class="wishlists">
+                {% for wishlist in wishlists %}
+                    {% if wishlist.public %}
+
+                    <div class="position">
+                        <button class="nes-btn nes-btn-noborder is-primary" id="wishlist-{{ wishlist.pk }}"
+                            onclick="copy_url_on_click({{ wishlist.pk }})" type="button">{{ wishlist.name }}</button>
+                        <label>
+                            <input type="checkbox" class="nes-checkbox" name="wishlist-{{ wishlist.pk }}" checked  onclick="add_diff({{ wishlist.pk }})"/>
+                            <span>Public</span>
+                        </label>
+                        <div class="wishlist-public-link" id="pub-url-wishlist-{{ wishlist.pk }}">{{ wishlist.get_public_url }}
+                        </div>
+                    </div>
+
+                    {% else %}
+
+                    <div class="position">
+                        <button class="nes-btn nes-btn-noborder is-disabled" type="button">{{ wishlist.name }}</button>
+                        <label>
+                            <input type="checkbox" class="nes-checkbox" name="wishlist-{{ wishlist.pk }}" onclick="add_diff({{ wishlist.pk }})"/>
+                            <span>Public</span>
+                        </label>
+                    </div>
+
+                    {% endif %}
+                {% empty %}
+                Nothing to see here
+                {% endfor %}
+            </div>
+    
+            <button class="nes-btn nes-btn-noborder is-disabled" type="button" id="shareform-submit-button">Submit</button>
+    
+            <button class="nes-btn nes-btn-noborder" type="button"
+                onclick="document.getElementById('share-dialog').close()">Cancel</button>
+        </form>
+        
     </dialog>
 </section>

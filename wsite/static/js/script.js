@@ -1,3 +1,5 @@
+var diffs = [];
+
 function logohandler() {
     const foundDivs = document.getElementsByClassName('logo-text');
     if (document.getElementsByClassName("logo-text").length == 0) {
@@ -18,5 +20,30 @@ function logohandler() {
 
 function copy_url_on_click(val) {
     const a = document.getElementById('pub-url-wishlist-' + val);
-    navigator.clipboard.writeText(window.location.href + a.innerText);
+    const link = window.location.href + a.innerText;
+    navigator.clipboard.writeText(link);
+    alert('Copied: ' + link);
+}
+
+function add_diff(pk) {
+    if (diffs.includes(pk)){
+        diffs = diffs.filter(function (pks) {
+            return pks !== pk;
+        });
+    }
+    else{
+        diffs.push(pk);
+    }
+    if (diffs.length != 0) {
+        let btn = document.getElementById("shareform-submit-button");
+        btn.classList.remove("is-disabled");
+        btn.classList.add("is-primary");
+        btn.setAttribute("type", "submit");
+    }
+    else{
+        let btn = document.getElementById("shareform-submit-button");
+        btn.classList.remove("is-primary");
+        btn.classList.add("is-disabled");
+        btn.setAttribute("type", "button");
+    }
 }
