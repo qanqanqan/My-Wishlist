@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ title }} {% endblock title %}
+
+{% block header %}
+{% include 'inc/_header.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <h3>{{ owner }}'s wishlist</h1>
+    <hr width="30%">
+    <div class="positions">
+        {% for position in positions %}
+        <div class="position">
+            <div class="pos-title">{{ position.title }}</div>
+            <div class="pos-desc">{{ position.description }}</div>
+        </div>
+        {% empty %}
+        Nothing to see here
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% include 'inc/_footer.html' %}
+{% endblock %}

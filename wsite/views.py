@@ -111,21 +111,29 @@ def delete_wishlist(req, slug):
     return redirect('user-wishlists')
 
 
-def change_wishlist_publicity(req):
-    if req.method != 'POST':
-        return redirect('user-wishlists')
+# оптимизировать фильтрацию - не по одному id, а на вхождение в группу id
+def change_wishlist_publicity(req, pk):
+    wishlist = Wishlist.objects.get(pk=pk)
+    if not wishlist.owner == req.user:
+        return PermissionDenied
     
-    data = req.POST
-    for key, value in dict(data).items():
-        if not key.startswith('wishlist-'):
-            continue
+    wishlist.public = not wishlist.public
+    wishlist.save()
 
-        wishlist_pk = int(key[-1])
-        bool_val = True if value[0] == 'on' else False
-        Wishlist.objects.filter(pk=wishlist_pk).update(public=bool_val)
-    
     return redirect('user-wishlists')
 
+
+def show_public_wishlist(req, user, slug):
+    user = User.objects.get(username=user)
+    wishlist = Wishlist.objects.get(slug=slug)
+
+    if user == req.user:
+        return redirect('user-wishlists')
+
+    if not wishlist.public:
+        return redirect('index')
+
+    return render(req, 'wsite/public-wishlist.html', {'positions': WishlistPosition.objects.filter(wishlist=wishlist), 'owner': user})
 
 
 # WISHLIST POSITIONS FUNCS

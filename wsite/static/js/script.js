@@ -26,12 +26,12 @@ function copy_url_on_click(val) {
 }
 
 function add_diff(pk) {
-    if (diffs.includes(pk)){
+    if (diffs.includes(pk)) {
         diffs = diffs.filter(function (pks) {
             return pks !== pk;
         });
     }
-    else{
+    else {
         diffs.push(pk);
     }
     if (diffs.length != 0) {
@@ -40,7 +40,7 @@ function add_diff(pk) {
         btn.classList.add("is-primary");
         btn.setAttribute("type", "submit");
     }
-    else{
+    else {
         let btn = document.getElementById("shareform-submit-button");
         btn.classList.remove("is-primary");
         btn.classList.add("is-disabled");
