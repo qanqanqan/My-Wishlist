@@ -22,8 +22,15 @@ body {
 .header, .footer {
     height: fit-content;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+}
+
+.header {
+    justify-content: space-between;
+}
+
+.footer {
+    justify-content: center;
 }
 
 
@@ -49,17 +56,59 @@ body {
     align-items: center;
 }
 
-.positions {
-    width: fit-content;
+.position, .dialog-position, .wishlist-position {
+    display: flex;
 }
 
-.position {
-    display: flex;
+.wishlist-position {
+    justify-content: center;
+}
+
+.dialog-position {
+    width: 100%;
     align-items: center;
     justify-content: space-between;
 }
 
+.btns-positions, .positions {
+    margin-bottom: 20px;
+}
+
+.positions {
+    width: 60%;
+}
+
+.position {
+    align-items: start;
+    justify-content: space-evenly;
+    flex-direction: column;
+    border: 1px solid lightgray;
+    border-radius: 30px;
+    min-height: 200px;
+    margin: 20px 0;
+    padding: 20px;
+}
+
+.text-cap {
+    text-transform: capitalize;
+}
+
+.pos-title, .pos-desc {
+    width: 50%;
+}
+
+.pos-title-label, .pos-link-label, .pos-desc-label {
+    font-size: small;
+    color: grey;
+}
+
+.pos-title-content, .pos-link-content, .pos-desc-content {
+    height: auto;
+    overflow-wrap: break-word;
+}
+
 .pos-text {
+    text-transform: capitalize;
     width: min-content;
 }
 
@@ -95,8 +144,26 @@ body {
     border-image-width: unset !important;
 }
 
+.pub-btn {
+    width: 50%;
+    margin: 0 20px;
+}
+
 .dialog-title {
     width: 100%; 
     margin: 20px auto;
     padding: 3px 0;
+}
+
+.wishlist-button {
+    width: 30%;
+}
+
+.wishlist-delete-button, .position-delete-button {
+    width: 100%;
+}
+
+#delete-wishlist-dialog[open], #delete-position-dialog[open]{
+    display: flex;
+    flex-direction: column;
 }

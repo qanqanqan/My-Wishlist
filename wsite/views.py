@@ -142,7 +142,7 @@ def add_position(req, slug):
         form = CreateWishlistPositionForm(req.POST)
         if form.is_valid():
             data = form.cleaned_data
-            WishlistPosition.objects.create(title=data['title'], description=data['description'], wishlist=Wishlist.objects.get(slug=slug))
+            WishlistPosition.objects.create(title=data['title'], description=data['description'], links=data['link'], wishlist=Wishlist.objects.get(slug=slug))
     
     return redirect('user-wishlist', slug=slug)
 

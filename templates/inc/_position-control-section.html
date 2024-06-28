@@ -4,7 +4,11 @@
         <form method="post" action="{% url 'add-position' slug %}">
             {% csrf_token %}
 
-            {{ form.as_p }}
+            {% for inp in form %}
+            <p>
+                {{ inp }}
+            </p>
+            {% endfor %}
 
             <button class="nes-btn is-primary nes-btn-noborder" type="submit">Confirm</button>
             <button class="nes-btn nes-btn-noborder" type="button"
@@ -14,10 +18,10 @@
     <dialog class="nes-dialog" id="delete-position-dialog">
         <div class="dialog-title">Delete position</div>
 
-        <div class="positions">
+        <div class="btns-positions">
             {% for position in positions %}
-            <div class="position">
-                <a class="nes-btn nes-btn-noborder is-error" href="{% url 'delete-position' position.pk %}">{{ position.title }}</a>
+            <div class="dialog-position">
+                <a class="nes-btn nes-btn-noborder is-error text-cap position-delete-button" href="{% url 'delete-position' position.pk %}">{{ position.title | truncatechars:13 }}</a>
             </div>
             {% empty %}
             Nothing to see here

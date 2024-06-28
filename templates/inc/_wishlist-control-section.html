@@ -4,8 +4,11 @@
         <form method="post" action="{% url 'add-wishlist' %}">
             {% csrf_token %}
 
-            {{ form.as_p }}
-
+            {% for inp in form %}
+            <p>
+                {{ inp }}
+            </p>
+            {% endfor %}
             <button class="nes-btn is-primary nes-btn-noborder" type="submit">Confirm</button>
             <button class="nes-btn nes-btn-noborder" type="button"
                 onclick="document.getElementById('add-wishlist-dialog').close()">Cancel</button>
@@ -14,10 +17,10 @@
     <dialog class="nes-dialog" id="delete-wishlist-dialog">
         <div class="dialog-title">Delete wishlist</div>
 
-        <div class="wishlists">
+        <div class="wishlists" style="margin-bottom: 20px;">
             {% for wishlist in wishlists %}
-            <div class="position">
-                <a class="nes-btn nes-btn-noborder is-error" href="{% url 'delete-wishlist' wishlist.slug %}">{{ wishlist.name }}</a>
+            <div class="dialog-position">
+                <a class="nes-btn nes-btn-noborder is-error text-cap wishlist-delete-button" href="{% url 'delete-wishlist' wishlist.slug %}">{{ wishlist.name | truncatechars:13}}</a>
             </div>
             {% empty %}
             Nothing to see here
@@ -27,26 +30,30 @@
         <button class="nes-btn nes-btn-noborder" type="button"
             onclick="document.getElementById('delete-wishlist-dialog').close()">Cancel</button>
     </dialog>
-    <dialog class="nes-dialog" id="share-dialog" style="width: fit-content">
+    <dialog class="nes-dialog" id="share-dialog" style="width: 45%">
         <div class="dialog-title">Share wishlist<br>Click to copy link</div>
 
         <div class="wishlists">
             {% for wishlist in wishlists %}
-            <div class="position">
+
+            <div class="dialog-position">
                 {% if wishlist.public %}
 
-                    <button class="nes-btn nes-btn-noborder is-primary" id="wishlist-{{ wishlist.pk }}"
-                    onclick="copy_url_on_click({{ wishlist.pk }})" type="button">{{ wishlist.name }}</button>
+                    <button class="nes-btn nes-btn-noborder is-primary pub-btn" id="wishlist-{{ wishlist.pk }}"
+                    onclick="copy_url_on_click({{ wishlist.pk }})" type="button">{{ wishlist.name | truncatechars:13 }}</button>
 
                     <div class="wishlist-public-link" id="pub-url-wishlist-{{ wishlist.pk }}">{{ wishlist.get_public_url }}</div>
 
+                    <a class="nes-btn is-error nes-btn-noborder pub-btn" id="change-wishlist-{{ wishlist.pk }}" href="{% url 'change-wishlist-publicity' wishlist.pk %}">Unmake public</a>
+
                 {% else %}
 
-                    <button class="nes-btn nes-btn-noborder is-disabled" id="wishlist-{{ wishlist.pk }}"
-                    onclick="copy_url_on_click({{ wishlist.pk }})" type="button">{{ wishlist.name }}</button>
+                    <button class="nes-btn nes-btn-noborder is-disabled pub-btn" id="wishlist-{{ wishlist.pk }}"
+                    onclick="copy_url_on_click({{ wishlist.pk }})" type="button">{{ wishlist.name | truncatechars:13 }}</button>
 
-                {% endif %}
-                <a class="nes-btn nes-btn-noborder" id="change-wishlist-{{ wishlist.pk }}" href="{% url 'change-wishlist-publicity' wishlist.pk %}">Change publicity</a>
+                    <a class="nes-btn is-success nes-btn-noborder pub-btn" id="change-wishlist-{{ wishlist.pk }}" href="{% url 'change-wishlist-publicity' wishlist.pk %}">Make public</a>
+
+                {% endif %}    
             </div>
             {% empty %}
             Nothing to see here...

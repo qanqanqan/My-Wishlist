@@ -7,14 +7,15 @@ from .models import Wishlist, WishlistPosition
 
 class CreateWishlistForm(forms.Form):
     name = forms.CharField(required=False, widget=forms.TextInput(
-        attrs={'class': 'nes-input nes-btn-noborder'}))
+        attrs={'class': 'nes-input nes-btn-noborder', 'placeholder': 'Name'}))
     slug = forms.CharField(required=False, widget=forms.HiddenInput())
     owner = forms.CharField(required=False, widget=forms.HiddenInput())
 
 
 class CreateWishlistPositionForm(forms.Form):
-    title = forms.CharField(widget=forms.TextInput())
-    description = forms.CharField(widget=forms.TextInput())
+    title = forms.CharField(widget=forms.TextInput(attrs={'class': 'nes-input nes-btn-noborder', 'placeholder': 'Title'}))
+    description = forms.CharField(widget=forms.TextInput(attrs={'class': 'nes-input nes-btn-noborder', 'placeholder': 'Description'}))
+    link = forms.CharField(widget=forms.TextInput(attrs={'class': 'nes-input nes-btn-noborder', 'placeholder': 'Link'}))
     wishlist = forms.CharField(required=False, widget=forms.HiddenInput())
 
 

@@ -25,8 +25,8 @@
     </div>
     <div class="positions">
         {% for wishlist in wishlists %}
-        <div class="position">
-            <a class="nes-btn nes-btn-noborder" href="{% url 'user-wishlist' wishlist.slug %}">{{ wishlist.name }}</a>
+        <div class="wishlist-position">
+            <a class="nes-btn nes-btn-noborder wishlist-button" href="{% url 'user-wishlist' wishlist.slug %}">{{ wishlist.name | truncatechars:14 }}</a>
         </div>
         {% empty %}
         Nothing to see here
